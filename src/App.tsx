@@ -2,6 +2,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useAppSelector, useAppDispatch } from './stores/hooks'
+import Login from './component/login/login'
 import {
     BrowserRouter as Router,
     Routes,
@@ -49,7 +50,7 @@ export default function App() {
 }
 
 function Home() {
-    return <h2>Home</h2>;
+    return <Login/>
 }
 
 function About() {
