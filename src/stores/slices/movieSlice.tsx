@@ -20,10 +20,13 @@ export const movieSlice = createSlice({
     setFilm: (state, action: PayloadAction<number>) => {
       state.value += action.payload
     },
+    increment: (state) => {
+      state.value += 1
+    }
   },
 })
 
-export const { setFilm } = movieSlice.actions
+export const { setFilm , increment } = movieSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCount = (state: RootState) => state.movies.value

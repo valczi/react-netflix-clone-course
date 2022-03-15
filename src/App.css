@@ -1,0 +1,23 @@
+.link {
+    padding: 5px;
+    color: #fff;
+    margin-left: 25px;
+    cursor: pointer;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.link-item {
+    padding: 5px;
+    color: grey;
+    margin-left: 25px;
+    cursor: pointer;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.logo {
+    width: 120px;
+}
+
+.appBar {}
