@@ -16,6 +16,7 @@ export default class Movies{
                 popularity:movie.popularity,
                 poster_path:movie.poster_path,
                 release_date: movie.release_date,
+                backdrop_path: movie.backdrop_path,
             });
         });
     }
@@ -98,6 +99,7 @@ export interface MoviesInterface{
     overview:string,
     popularity:number,
     release_date:string;
+    backdrop_path:string,
   }
 
   export interface CategoryInterface{

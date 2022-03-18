@@ -13,6 +13,7 @@ import "./Lists.css";
 type scrollVisibilityApiType = React.ContextType<typeof VisibilityContext>;
 
 function Lists() {
+  
   const { disableScroll, enableScroll } = usePreventBodyScroll();
   const lists = useAppSelector((state: any) => state.movies.lists);
 

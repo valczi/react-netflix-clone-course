@@ -15,7 +15,7 @@ export function Card({ movie }: CardInterface) {
     <div
       className="card"
     >
-      <img className='poster' alt={movie.overview} src={'https://image.tmdb.org/t/p/original/'+movie.poster_path}/>
+      <img className='poster' alt={movie.overview} src={'https://image.tmdb.org/t/p/original'+movie.backdrop_path}/>
     </div>
   );
 }

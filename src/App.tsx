@@ -21,9 +21,10 @@ import {
 } from "react-router-dom";
 import './App.css'
 
-import {  fetchData } from './stores/slices/movieSlice';
+import { fetchData } from './stores/slices/movieSlice';
 import Lists from './component/Lists/Lists';
 import Watching from './component/watching/watching';
+import Banner from './component/banner/banner';
 
 const pages = ['Home', 'Movies', 'Users'];
 const settings = ['Home', 'Movies', 'Users', 'Logout'];
@@ -38,11 +39,10 @@ export default function App() {
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
   useEffect(() => {
     //localStorage.setItem('myCat');
     dispatch(fetchData());
-  },[]);
+  }, []);
 
   const handleOpenNavMenu = (event: any) => {
     setAnchorElNav(event.currentTarget);
@@ -109,7 +109,7 @@ export default function App() {
                 }}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting+'menu'} onClick={handleCloseUserMenu}>
+                  <MenuItem key={setting + 'menu'} onClick={handleCloseUserMenu}>
                     <Link className='link-item' to={'/' + setting.toLowerCase()}>{setting}</Link>
                   </MenuItem>
 
@@ -128,7 +128,7 @@ export default function App() {
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
-                <MenuItem key={page+'little'} onClick={handleCloseUserMenu}>
+                <MenuItem key={page + 'little'} onClick={handleCloseUserMenu}>
                   <Link className='link' to={'/' + page.toLowerCase()}>{page}</Link>
                 </MenuItem>
               ))}
@@ -167,14 +167,14 @@ export default function App() {
         </Container>
       </AppBar>
       <Routes>
-      <Route path="/" element={
+        <Route path="/watching" element={
           <Watching />
         } />
         <Route path="/home" element={
           <Home />
         } />
         <Route path="/movies" element={
-          <Lists  />
+          <Movies />
         } />
         <Route path="/users" element={
           <Users />
@@ -186,6 +186,15 @@ export default function App() {
 
 function Home() {
   return <Login />
+}
+
+function Movies() {
+  return (
+    <div>
+      <Banner />
+      <Lists />
+    </div>
+  )
 }
 
 function Users() {

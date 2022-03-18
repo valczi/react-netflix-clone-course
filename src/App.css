@@ -28,4 +28,10 @@
     background-color: #0a0909;
 }
 
+.textButton {
+    font-weight: 550;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
 .appBar {}

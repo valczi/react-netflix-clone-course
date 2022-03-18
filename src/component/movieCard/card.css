@@ -1,5 +1,11 @@
 .poster {
-    width: 250px;
-    height: 300px;
-    margin: 20px;
+    width: 320;
+    height: 180px;
+    margin: 20px 10px 10px;
+    transition-duration: 500ms;
+}
+
+.poster:hover {
+    transform: scale(1.2);
+    transition-duration: 500ms;
 }

@@ -43,7 +43,7 @@ const startUsers = () :userInterface[] => {
     localStorage.setItem('users',JSON.stringify(usersObject));
     return usersObject;
   }
-  console.log(JSON.parse(users));
+  //console.log(JSON.parse(users));
   return JSON.parse(users);
 }
 

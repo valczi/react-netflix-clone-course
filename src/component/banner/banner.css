@@ -1,0 +1,13 @@
+.buttons {
+    margin-top: 600px;
+    margin-left: 10%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    width: auto;
+}
+
+.buttons>* {
+    margin: 1%;
+}
