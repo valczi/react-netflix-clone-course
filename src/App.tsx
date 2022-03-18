@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from './stores/hooks'
 import Login from './component/login/login'
 import AppBar from '@mui/material/AppBar';
@@ -11,7 +11,6 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {
@@ -22,22 +21,28 @@ import {
 } from "react-router-dom";
 import './App.css'
 
-import { increment, setFilm } from './stores/slices/movieSlice';
-import { width } from '@mui/system';
+import {  fetchData } from './stores/slices/movieSlice';
+import Lists from './component/Lists/Lists';
+import Watching from './component/watching/watching';
 
-const pages = ['Home', 'About', 'Users'];
-const settings = ['Home', 'About', 'Users', 'Logout'];
+const pages = ['Home', 'Movies', 'Users'];
+const settings = ['Home', 'Movies', 'Users', 'Logout'];
 
 
 
 export default function App() {
 
-  const value = useAppSelector((state: any) => state.movies.value);
+  const movies = useAppSelector((state: any) => state.movies);
   const dispatch = useAppDispatch();
-  const [settings, setSettings] = React.useState(['Home', 'About', 'Users', 'Logout'])
+  const [settings, setSettings] = React.useState(['Home', 'Movies', 'Users', 'Logout'])
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  useEffect(() => {
+    //localStorage.setItem('myCat');
+    dispatch(fetchData());
+  },[]);
 
   const handleOpenNavMenu = (event: any) => {
     setAnchorElNav(event.currentTarget);
@@ -58,119 +63,124 @@ export default function App() {
 
   return (
     <Router>
-        <AppBar position="static" className='appBar' sx={{
-          background:'#0a0909',
-        }}>
-          <Container maxWidth="xl">
-            <Toolbar disableGutters>
-              <Typography
-                variant="h6"
-                noWrap
-                component="div"
-                sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-              >
-                <img className='logo'
-                  src="Logonetflix.png"
-                  alt="Logo netflix"/>
-              </Typography>
+      <AppBar position="static" className='appBar' sx={{
+        background: '#0a0909',
+      }}>
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+            >
+              <img className='logo'
+                src="Logonetflix.png"
+                alt="Logo netflix" />
+            </Typography>
 
-              <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleOpenNavMenu}
-                  color="inherit"
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorElNav}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                  }}
-                  open={Boolean(anchorElNav)}
-                  onClose={handleCloseNavMenu}
-                  sx={{
-                    display: { xs: 'block', md: 'none' },
-                  }}
-                >
-                  {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                      {console.log('/' + setting.toLowerCase())}
-                      <Link className='link-item' to={'/' + setting.toLowerCase()}>{setting}</Link>
-                    </MenuItem>
-
-                  ))}
-                </Menu>
-              </Box>
-              <Typography
-                variant="h6"
-                noWrap
-                component="div"
-                sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
               >
-                LOGO
-              </Typography>
-              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                {pages.map((page) => (
-                  <Link className='link' to={'/' + page.toLowerCase()}>{page}</Link>
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: 'block', md: 'none' },
+                }}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting+'menu'} onClick={handleCloseUserMenu}>
+                    <Link className='link-item' to={'/' + setting.toLowerCase()}>{setting}</Link>
+                  </MenuItem>
+
                 ))}
-              </Box>
+              </Menu>
+            </Box>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+            >
+              <img className='logo'
+                src="Logonetflix.png"
+                alt="Logo netflix" />
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              {pages.map((page) => (
+                <MenuItem key={page+'little'} onClick={handleCloseUserMenu}>
+                  <Link className='link' to={'/' + page.toLowerCase()}>{page}</Link>
+                </MenuItem>
+              ))}
+            </Box>
 
-              <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                  </IconButton>
-                </Tooltip>
-                <Menu
-                  sx={{ mt: '45px' }}
-                  id="menu-appbar"
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
-                  {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                      {console.log('/' + setting.toLowerCase())}
-                      <Link to={'/' + setting.toLowerCase()}>{setting}</Link>
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </Box>
-            </Toolbar>
-          </Container>
-        </AppBar>
-        <Routes>
-          <Route path="/about" element={
-            <About />
-          } />
-          <Route path="/home" element={
-            <Home />
-          } />
-          <Route path="/users" element={
-            <Users />
-          } />
-        </Routes>
-    </Router>
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting + 'user'} onClick={handleCloseUserMenu}>
+                    <Link to={'/' + setting.toLowerCase()}>{setting}</Link>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+      <Routes>
+      <Route path="/" element={
+          <Watching />
+        } />
+        <Route path="/home" element={
+          <Home />
+        } />
+        <Route path="/movies" element={
+          <Lists  />
+        } />
+        <Route path="/users" element={
+          <Users />
+        } />
+      </Routes>
+    </Router >
   );
 }
 
@@ -178,37 +188,6 @@ function Home() {
   return <Login />
 }
 
-function About() {
-  return <h2>About</h2>;
-}
-
 function Users() {
   return <h2>Users</h2>;
 }
-
-
-/*
-<Router>
-                <nav>
-                    <ul>
-                        <li>
-                            <div onClick={()=>{
-                                 dispatch(increment());
-                                 console.log(value);
-                            }}>
-                            <Link to="/">Home</Link>
-                            </div>
-                        </li>
-                        <li>
-                            <Link to="/about">About</Link>
-                        </li>
-                        <li>
-                            <Link to="/users">Users</Link>
-                        </li>
-                        
-                    </ul>
-                </nav>
-
-                
-        </Router>
-        */ 
