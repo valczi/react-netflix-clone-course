@@ -33,15 +33,16 @@ const settings = ['Home', 'Movies', 'Users', 'Logout'];
 
 export default function App() {
 
-  const movies = useAppSelector((state: any) => state.movies);
   const dispatch = useAppDispatch();
   const [settings, setSettings] = React.useState(['Home', 'Movies', 'Users', 'Logout'])
-
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const bannerMovie = useAppSelector((state: any) => state.movies.films[0]);
+
   useEffect(() => {
     //localStorage.setItem('myCat');
     dispatch(fetchData());
+    console.log(bannerMovie);
   }, []);
 
   const handleOpenNavMenu = (event: any) => {
@@ -112,7 +113,6 @@ export default function App() {
                   <MenuItem key={setting + 'menu'} onClick={handleCloseUserMenu}>
                     <Link className='link-item' to={'/' + setting.toLowerCase()}>{setting}</Link>
                   </MenuItem>
-
                 ))}
               </Menu>
             </Box>
@@ -174,7 +174,10 @@ export default function App() {
           <Home />
         } />
         <Route path="/movies" element={
-          <Movies />
+          <div className='background'>
+            <Banner movie={bannerMovie} height={880} open={false} />
+            <Lists />
+          </div>
         } />
         <Route path="/users" element={
           <Users />
@@ -186,15 +189,6 @@ export default function App() {
 
 function Home() {
   return <Login />
-}
-
-function Movies() {
-  return (
-    <div>
-      <Banner />
-      <Lists />
-    </div>
-  )
 }
 
 function Users() {

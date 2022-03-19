@@ -3,6 +3,7 @@
     height: 180px;
     margin: 20px 10px 10px;
     transition-duration: 500ms;
+    cursor: pointer;
 }
 
 .poster:hover {

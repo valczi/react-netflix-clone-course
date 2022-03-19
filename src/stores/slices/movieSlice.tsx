@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '../movieStore'
 import Movies, { CategoriesInterface } from '../../entity/movies';
-import { MovieInterface, MoviesInterface, ListInterface } from '../../entity/movies';
+import { MovieInterface, ListInterface } from '../../entity/movies';
 import dataFetcher from '../../entity/dataFetcher';
 import { v4 as uuidv4 } from 'uuid';
 // Define a type for the slice state

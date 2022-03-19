@@ -1,32 +1,32 @@
 import { url } from "inspector";
 import React from "react";
-
 import  ButtonPlay  from "../../component/buttons/buttonPlay";
 import  ButtonInfo  from "../../component/buttons/buttonInfo";
-import { fetchData } from '../../stores/slices/movieSlice';
-import { useAppSelector, useAppDispatch } from '../../stores/hooks'
-
-
 import './banner.css'
+import { MovieInterface } from "../../entity/movies";
 
-export default function Banner() {
+interface BannerInterface{
+    movie:MovieInterface
+    height:Number
+    open:boolean
+}
+
+export default function Banner({ movie , height , open } : BannerInterface) {
   //console.log(movie.poster_path);
-
-  const movie = useAppSelector((state: any) => state.movies.films[0]);
-  const dispatch = useAppDispatch();
   let style = {};
-  console.log(movie);
-  if(movie===undefined){
-      console.log(' console undefined');
-    dispatch(fetchData());
-  }else{
+  if(movie!==undefined){
       style={
         width: '100%',
-        height: '880px',
+        height: height+'px',
         background: 'url(https://image.tmdb.org/t/p/original'+movie.backdrop_path+')',
         backgroundRepeat:' no-repeat',
         backgroundSize: 'cover',
       }
+  }
+
+  let info=()=>{
+      if(!open)
+        return  <ButtonInfo movie={movie} /> 
   }
 
   return (
@@ -36,7 +36,7 @@ export default function Banner() {
     >
         <div className="buttons">
      <ButtonPlay />
-     <ButtonInfo />
+     {info()}
      </div>
     </div>
   );

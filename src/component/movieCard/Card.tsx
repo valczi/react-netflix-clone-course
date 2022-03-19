@@ -1,7 +1,7 @@
 import React from "react";
 
 import { MovieInterface } from "../../entity/movies";
-
+import ModalMovie from '../modalMovie/modalMovie'
 import './card.css'
 
 interface CardInterface{
@@ -10,12 +10,18 @@ interface CardInterface{
 }
 
 export function Card({ movie }: CardInterface) {
-  //console.log(movie.poster_path);
+const [open, setOpen] = React.useState(false);
+const handleOpen = () => setOpen(true);
+const handleClose = () => setOpen(false);
+
   return (
-    <div
+    <><div
       className="card"
+      onClick={() => {
+        handleOpen();
+      } }
     >
-      <img className='poster' alt={movie.overview} src={'https://image.tmdb.org/t/p/original'+movie.backdrop_path}/>
-    </div>
+      <img className='poster' alt={movie.overview} src={'https://image.tmdb.org/t/p/original' + movie.backdrop_path} />
+    </div><ModalMovie movie={movie} open={open} handleClose={handleClose} /></>
   );
 }

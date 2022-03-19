@@ -22,6 +22,7 @@
 
 .list {
     padding-top: 1%;
+    margin-top: 2%;
 }
 
 .list-title {
@@ -29,8 +30,4 @@
     font-weight: 900;
     font-size: larger;
     margin-left: 2%;
-}
-
-.background {
-    background-color: #0a0909;
 }
