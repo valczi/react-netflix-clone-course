@@ -9,7 +9,7 @@ interface CardInterface{
     itemId:string
 }
 
-export function Card({ movie }: CardInterface) {
+export default function Card({ movie }: CardInterface) {
 const [open, setOpen] = React.useState(false);
 const handleOpen = () => setOpen(true);
 const handleClose = () => setOpen(false);

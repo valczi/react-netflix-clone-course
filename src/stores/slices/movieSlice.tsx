@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '../movieStore'
 import Movies, { CategoriesInterface } from '../../entity/movies';
-import { MovieInterface, ListInterface } from '../../entity/movies';
+import { MovieInterface, ListInterface , CategoryInterface } from '../../entity/movies';
 import dataFetcher from '../../entity/dataFetcher';
 import { v4 as uuidv4 } from 'uuid';
 // Define a type for the slice state
@@ -9,6 +9,7 @@ interface movieState {
   err: string,
   films: MovieInterface[],
   lists: ListInterface[],
+  genres: CategoryInterface[],
   users:userInterface[],
 }
 
@@ -52,6 +53,7 @@ const initialState: movieState = {
   err: '',
   films: [],
   lists: [],
+  genres: [],
   users:startUsers(),
 }
 let Gestionnaire = new Movies();
@@ -67,6 +69,7 @@ export const movieSlice = createSlice({
     },
     setCategories: (state, action: PayloadAction<CategoriesInterface>) => {
       Gestionnaire.setCategories(action.payload);
+      state.genres = Gestionnaire.categories;
     },
     setLists: (state) => {
       state.lists = Gestionnaire.getLists();
@@ -98,7 +101,6 @@ export const fetchData = () => {
       dispatch(setFilms(movies));
       dispatch(setCategories(categories));
       dispatch(setLists());
-      startUsers();
     }
   }
 }
