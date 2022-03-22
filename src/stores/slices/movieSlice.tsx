@@ -11,6 +11,9 @@ interface movieState {
   lists: ListInterface[],
   genres: CategoryInterface[],
   users:userInterface[],
+  userLogged?:userInterface,
+  logged:boolean,
+
 }
 
 export interface userInterface {
@@ -55,6 +58,7 @@ const initialState: movieState = {
   lists: [],
   genres: [],
   users:startUsers(),
+  logged:false,
 }
 let Gestionnaire = new Movies();
 
@@ -66,6 +70,9 @@ export const movieSlice = createSlice({
     setFilms: (state, action: PayloadAction<MovieInterface[]>) => {
       Gestionnaire.setMovies(action.payload);
       state.films = Gestionnaire.getData();
+    },
+    setLogged: (state, action: PayloadAction<boolean>) => {
+      state.logged = action.payload;
     },
     setCategories: (state, action: PayloadAction<CategoriesInterface>) => {
       Gestionnaire.setCategories(action.payload);
@@ -80,7 +87,7 @@ export const movieSlice = createSlice({
   },
 })
 
-export const { setFilms, setError, setCategories, setLists } = movieSlice.actions
+export const { setFilms, setError, setCategories, setLists , setLogged } = movieSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectMovies = (state: RootState) => state.movies

@@ -1,25 +1,45 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from 'react';
-import './login.css';
+import './Login.css';
+import { useAppSelector, useAppDispatch } from '../../stores/hooks'
+import { useNavigate } from "react-router-dom"
+import TextField from '@mui/material/TextField';
+import { setLogged } from '../../stores/slices/movieSlice';
 
-interface LoginInterface {
+export default function Login() {
+    let navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    let inputStyle = {
+        background: 'grey',
+        width: '100%',
+        marginTop: 1,
+        borderRadius: 1,
+        border: 'none',
+        disableUnderline: true
+    }
 
-}
+    const Login = React.createRef<HTMLInputElement>();
+    const Password = React.createRef<HTMLInputElement>();
 
-export default function login({ }: LoginInterface) {
     return (
         <div className='body'>
             <div className="login">
                 <h1 className="login__title">Sign In</h1>
                 <div className="login__group">
-                    <input className="login__group__input" type="text"  />
-                    <label className="login__group__label">Email or phone number</label>
+                    <TextField inputRef={Login} key={'LoginFirst'} InputLabelProps={{
+                        style: { color: '#fff' },
+                    }}
+                        InputProps={{ disableUnderline: true }} sx={inputStyle} id="filled-basic" label="Email ou E-mail" variant="filled" />
                 </div>
                 <div className="login__group">
-                    <input className="login__group__input" type="password" />
-                    <label className="login__group__label">Password</label>
+                    <TextField inputRef={Password} key={'Password'} InputLabelProps={{
+                        style: { color: '#fff' },
+                    }} InputProps={{ disableUnderline: true }} sx={inputStyle} id="filled-basic" type="password" label="Password" variant="filled" />
                 </div>
-                <button className="login__sign-in" type="button">Sign In</button>
+                <button onClick={() => {
+                    dispatch(setLogged(true));
+                    navigate('/movies')
+                }} className="login__sign-in" type="button">Sign In</button>
                 <div className="login__secondary-cta"><a className="login__secondary-cta__text" href="#">Remember me</a><a className="login__secondary-cta__text login__secondary-cta__text--need-help" href="#">Need help?</a></div>
             </div>
         </div>
