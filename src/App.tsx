@@ -16,6 +16,7 @@ import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
 import MenuItem from '@mui/material/MenuItem';
 import SearchIcon from '@mui/icons-material/Search';
+import { useNavigate } from "react-router-dom"
 import {
   BrowserRouter as Router,
   Routes,
@@ -24,25 +25,26 @@ import {
 } from "react-router-dom";
 import './App.css'
 
-import { fetchData } from './stores/slices/movieSlice';
+import { fetchData, setLogged } from './stores/slices/movieSlice';
 import Lists from './component/Lists/Lists';
 import Card from './component/movieCard/Card';
 import TopList from './component/Lists/TopList';
 import Watching from './component/watching/watching';
+import Selection from './component/selection/selection';
 import Banner from './component/banner/banner';
 import { MovieInterface } from './entity/movies';
 
 const pagesInit = ['logout'];
-const settingInit = ['Home', 'Movies', 'Users', 'who\'s watching'];
+const settingInit = ['Movies', 'My selection', 'who\'s watching'];
 
 
 
 export default function App() {
-
   const dispatch = useAppDispatch();
   const logged = useAppSelector((state: any) => state.movies.logged);
+  const userLogged = useAppSelector((state: any) => state.movies.userLogged);
   const [pages, setPages] = React.useState(pagesInit);
-  const [settings, setSettings] = React.useState(['']);
+  const [settings, setSettings] = React.useState(settingInit);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [searchInput, setSearchInput] = React.useState('');
@@ -98,8 +100,9 @@ export default function App() {
       );
     }
   }
-  
-  let styleRightBox =  (logged === true ?{ flexGrow: 0 } : { display: 'none' });
+
+  let styleRightBox = (logged === true ? { flexGrow: 0 } : { display: 'none' });
+  let styleItem = (logged === true ? {} : { display: 'none' });
   let styleRoute = (logged === true ? { flexGrow: 1, display: { xs: 'none', md: 'flex' } } : { display: 'none' });
   let styleRouteMenu = (logged === true ? { flexGrow: 1, display: { xs: 'flex', md: 'none' } } : { display: 'none' });
 
@@ -152,7 +155,8 @@ export default function App() {
                 }}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting + 'menu'} onClick={handleCloseUserMenu}>
+                  <MenuItem style={styleItem} key={setting + 'menu'} onClick={handleCloseUserMenu}>
+                    {console.log(setting.toLowerCase().replace(' ', '_').replace("\'", ""))}
                     <Link className='link-item' to={'/' + setting.toLowerCase().replace(' ', '_').replace("\'", "")}>{setting}</Link>
                   </MenuItem>
                 ))}
@@ -170,7 +174,7 @@ export default function App() {
             </Typography>
             <Box sx={styleRoute}>
               {settings.map((page) => (
-                <MenuItem key={page + 'little'} onClick={handleCloseUserMenu}>
+                <MenuItem style={styleItem} key={page + 'little'} onClick={handleCloseUserMenu}>
                   <Link className='link' to={'/' + page.toLowerCase().replace(' ', '_').replace("\'", "")}>{page}</Link>
                 </MenuItem>
               ))}
@@ -179,7 +183,7 @@ export default function App() {
             <div>
               <Box sx={styleRightBox}>
                 <Input
-                
+
                   sx={{
                     color: 'white',
                     backgroundColor: 'rgb(92, 92, 92)',
@@ -217,7 +221,7 @@ export default function App() {
                 />
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                    <Avatar alt="Remy Sharp" src={userLogged !== undefined ? '/icon/' + userLogged.profilePicture : "/static/images/avatar/2.jpg"} />
                   </IconButton>
                 </Tooltip>
                 <Menu
@@ -236,11 +240,13 @@ export default function App() {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
-                  {pages.map((setting) => (
-                    <MenuItem key={setting + 'user'} onClick={handleCloseUserMenu}>
-                      <Link to={'/' + setting.toLowerCase().replace(" ", "_").replace("\'", "")}>{setting}</Link>
-                    </MenuItem>
-                  ))}
+                  <MenuItem  onClick={()=>{
+                    handleCloseUserMenu()
+                    window.location.replace('/');
+                    }}
+                    key={'user'}>
+                    Logout
+                  </MenuItem>
                 </Menu>
               </Box>
             </div>
@@ -256,12 +262,12 @@ export default function App() {
           <Home />
         } />
         <Route path="/movies" element={
-          <div className='background'>
+          <div>
             {showMovie()}
           </div>
         } />
-        <Route path="/users" element={
-          <Users />
+        <Route path="/my_selection" element={
+          <Selection />
         } />
       </Routes>
     </Router >

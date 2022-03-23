@@ -19,6 +19,7 @@ interface movieState {
 export interface userInterface {
   name: string,
   id:string,
+  profilePicture:string,
   selection:number[],
 }
 
@@ -30,16 +31,19 @@ const startUsers = () :userInterface[] => {
       {
         id:uuidv4(),
         name:'john',
+        profilePicture:'icon1.jpg',
         selection: []
       },
       {
         id:uuidv4(),
         name:'bill',
+        profilePicture:'icon2.jpg',
         selection: []
       },
       {
         id:uuidv4(),
         name:'paul',
+        profilePicture:'icon3.jpg',
         selection: []
       }
     ]
@@ -81,13 +85,16 @@ export const movieSlice = createSlice({
     setLists: (state) => {
       state.lists = Gestionnaire.getLists();
     },
+    setUser: (state,action: PayloadAction<userInterface>) => {
+      state.userLogged = action.payload;
+    },
     setError: (state, action: PayloadAction<string>) => {
       state.err = action.payload;
     },
   },
 })
 
-export const { setFilms, setError, setCategories, setLists , setLogged } = movieSlice.actions
+export const { setFilms, setError, setCategories, setLists , setLogged , setUser} = movieSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectMovies = (state: RootState) => state.movies

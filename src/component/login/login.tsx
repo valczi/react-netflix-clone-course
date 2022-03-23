@@ -1,14 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from 'react';
 import './Login.css';
-import { useAppSelector, useAppDispatch } from '../../stores/hooks'
 import { useNavigate } from "react-router-dom"
 import TextField from '@mui/material/TextField';
-import { setLogged } from '../../stores/slices/movieSlice';
+
 
 export default function Login() {
     let navigate = useNavigate();
-    const dispatch = useAppDispatch();
     let inputStyle = {
         background: 'grey',
         width: '100%',
@@ -37,8 +35,7 @@ export default function Login() {
                     }} InputProps={{ disableUnderline: true }} sx={inputStyle} id="filled-basic" type="password" label="Password" variant="filled" />
                 </div>
                 <button onClick={() => {
-                    dispatch(setLogged(true));
-                    navigate('/movies')
+                    navigate('/whos_watching')
                 }} className="login__sign-in" type="button">Sign In</button>
                 <div className="login__secondary-cta"><a className="login__secondary-cta__text" href="#">Remember me</a><a className="login__secondary-cta__text login__secondary-cta__text--need-help" href="#">Need help?</a></div>
             </div>

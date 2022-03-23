@@ -1,6 +1,12 @@
 .pictureLogin {
-    width: 150px;
-    height: 175px;
-    margin: 20px;
-    margin-top: 20%;
+    width: 200px;
+    height: 250px;
+    margin: 5%;
+}
+
+.users {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 10%;
 }

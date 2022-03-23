@@ -30,7 +30,7 @@ const handleClose = () => setOpen(false);
       }}
       onClick={handleOpen}
       className='btnPlay' variant="outlined">
-        <img className='iconPlay 'alt='play icon' src='icons8-info-48.png'/>
+        <img className='iconPlay 'alt='play icon' src='icon/icons8-info-48.png'/>
            <div className='textButton'>Plus d'infos</div> 
         </Button>
         <ModalMovie movie={movie} open={open} handleClose={handleClose} />

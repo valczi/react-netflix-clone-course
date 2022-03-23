@@ -17,7 +17,7 @@ export default function ButtonPlay() {
           color:'rgb(0, 0, 0)',
         }
       }} className='btnPlay' variant="outlined">
-        <img className='iconPlay 'alt='play icon' src='icons8-jouer-30.png'/>
+        <img className='iconPlay 'alt='play icon' src='icon/icons8-jouer-30.png'/>
            <div className='textButton'>Lecture</div> 
         </Button>
     </div>

@@ -125,9 +125,6 @@ export default function ModalInfo({ movie, open, handleClose }: ModalInterface) 
                         <div className="modalContent">
                             <div className='modalText'>
                                 <div className='left'>
-                                    <Typography sx={title} id="modal-modal-title" component="h1">
-                                        {movie.title}
-                                    </Typography>
                                     <Typography sx={styleText}
                                         id="modal-modal-description" >
                                         {movie.overview !== '' ? movie.overview : 'pas de résumé'}
