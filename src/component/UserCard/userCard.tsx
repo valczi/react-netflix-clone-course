@@ -16,7 +16,6 @@ export default function UserCard({ user }: UserCardInterface) {
     const dispatch= useAppDispatch();
     const navigate=useNavigate();
     const imgLink = 'icon/'+user.profilePicture;
-    console.log(imgLink);
 
     const handleClick=()=>{
         dispatch(setLogged(true));

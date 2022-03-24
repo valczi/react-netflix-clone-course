@@ -54,7 +54,6 @@ export default class Movies{
             poz = this.movies.indexOf(result);
         if (poz !== -1) {
             this.movies.splice(poz, 1);
-            //console.log(newMyTables);
 
         }
     }

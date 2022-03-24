@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
-import ButtonPlay from "../../component/buttons/buttonPlay";
-import ButtonInfo from "../../component/buttons/buttonInfo";
-import ButtonAdd from "../../component/buttons/buttonAdd";
-import { MovieInterface } from "../../entity/movies";
-import { useNavigate } from "react-router-dom";
 import Typography from '@mui/material/Typography';
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import ButtonAdd from "../../component/buttons/buttonAdd";
+import ButtonRemove from "../../component/buttons/buttonRemove";
+import ButtonInfo from "../../component/buttons/buttonInfo";
+import ButtonPlay from "../../component/buttons/buttonPlay";
+import { MovieInterface } from "../../entity/movies";
 import { useAppSelector } from '../../stores/hooks';
 import './banner.css';
 
@@ -27,7 +28,6 @@ const title = {
 
 
 export default function Banner({ movie, height, open }: BannerInterface) {
-  //console.log(movie.poster_path);
   let navigate = useNavigate();
   const logged = useAppSelector((state: any) => state.movies.logged);
   const user = useAppSelector((state: any) => state.movies.userLogged);
@@ -56,6 +56,8 @@ export default function Banner({ movie, height, open }: BannerInterface) {
     else{
       if(!user.selection.includes(movie.id)){
         return <ButtonAdd movieId={movie.id}/>
+      }else{
+        return <ButtonRemove movieId={movie.id}/>
       }
     }
   }

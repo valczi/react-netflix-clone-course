@@ -85,7 +85,7 @@ export default function App() {
     } else {
       let filtered: MovieInterface[] = [];
       Allmovies.forEach((movie: MovieInterface) => {
-        if (movie.title.includes(searchInput))
+        if (movie.title.toLocaleLowerCase().includes(searchInput.toLocaleLowerCase()))
           filtered.push(movie);
       })
       return (
@@ -156,7 +156,6 @@ export default function App() {
               >
                 {settings.map((setting) => (
                   <MenuItem style={styleItem} key={setting + 'menu'} onClick={handleCloseUserMenu}>
-                    {console.log(setting.toLowerCase().replace(' ', '_').replace("\'", ""))}
                     <Link className='link-item' to={'/' + setting.toLowerCase().replace(' ', '_').replace("\'", "")}>{setting}</Link>
                   </MenuItem>
                 ))}

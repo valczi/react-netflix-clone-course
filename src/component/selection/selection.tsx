@@ -29,7 +29,7 @@ function Selection() {
       (movie:MovieInterface) => {
         if(userLogged.selection.includes(movie.id))
         return (
-            <Card itemId={movie.id.toString()} movie={movie} />
+            <Card key={movie.id} itemId={movie.id.toString()} movie={movie} />
         )
       }
     )}

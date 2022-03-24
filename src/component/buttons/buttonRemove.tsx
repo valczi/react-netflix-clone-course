@@ -6,21 +6,21 @@ import { userInterface } from "../../stores/slices/movieSlice";
 import { setUser } from '../../stores/slices/movieSlice';
 import Tooltip from '@mui/material/Tooltip';
 
-interface AddInterface {
+interface RemoveInterface {
     movieId: number
 }
 
-export default function ButtonAdd({ movieId }: AddInterface) {
+export default function ButtonRemove({ movieId }: RemoveInterface) {
 
     const user: userInterface = useAppSelector((state: any) => state.movies.userLogged);
     const dispatch = useAppDispatch();
     return (
         <div>
-            <Tooltip title="Add to your list">
+            <Tooltip title="Remove from your list">
                 <Button
                     onClick={() => {
                         let userBis = JSON.parse(JSON.stringify(user));
-                        userBis.selection.push(movieId)
+                        userBis.selection = userBis.selection.filter((id: number) => id !== movieId);
                         dispatch(setUser(userBis));
                     }}
 
@@ -35,7 +35,7 @@ export default function ButtonAdd({ movieId }: AddInterface) {
                             color: 'rgb(0, 0, 0)',
                         }
                     }} className='btnPlay' variant="outlined">
-                    <img className='iconPlay ' alt='play icon' src='icon/icons8-plus-30.png' />
+                    <img className='iconPlay ' alt='remove icon' src='icon/icons8-cross-48.png' />
                 </Button>
             </Tooltip>
         </div >

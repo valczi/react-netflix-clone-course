@@ -47,11 +47,9 @@ const startUsers = () :userInterface[] => {
         selection: []
       }
     ]
-    //console.log(JSON.stringify(usersObject));
     localStorage.setItem('users',JSON.stringify(usersObject));
     return usersObject;
   }
-  //console.log(JSON.parse(users));
   return JSON.parse(users);
 }
 
@@ -87,6 +85,12 @@ export const movieSlice = createSlice({
     },
     setUser: (state,action: PayloadAction<userInterface>) => {
       state.userLogged = action.payload;
+      state.users.forEach((user,index)=>{
+        if(user.id===action.payload.id){
+          state.users[index]=action.payload;
+        }
+      });
+      localStorage.setItem('users',JSON.stringify(state.users));
     },
     setError: (state, action: PayloadAction<string>) => {
       state.err = action.payload;

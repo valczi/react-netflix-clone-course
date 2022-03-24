@@ -3,7 +3,7 @@ import * as React from 'react';
 import './Login.css';
 import { useNavigate } from "react-router-dom"
 import TextField from '@mui/material/TextField';
-
+import Swal from 'sweetalert2'
 
 export default function Login() {
     let navigate = useNavigate();
@@ -16,6 +16,19 @@ export default function Login() {
         disableUnderline: true
     }
 
+
+    const handleSubmit = () => {
+        if (Login.current?.value !== '' && Password.current?.value !== '') {
+            navigate('/whos_watching');
+        }
+        else
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please complete the login form',
+                background: '#0a0909',
+            })
+    }
     const Login = React.createRef<HTMLInputElement>();
     const Password = React.createRef<HTMLInputElement>();
 
@@ -27,16 +40,14 @@ export default function Login() {
                     <TextField inputRef={Login} key={'LoginFirst'} InputLabelProps={{
                         style: { color: '#fff' },
                     }}
-                        InputProps={{ disableUnderline: true }} sx={inputStyle} id="filled-basic" label="Email ou E-mail" variant="filled" />
+                        InputProps={{ disableUnderline: true }} sx={inputStyle} label="Email ou E-mail" variant="filled" />
                 </div>
                 <div className="login__group">
                     <TextField inputRef={Password} key={'Password'} InputLabelProps={{
                         style: { color: '#fff' },
-                    }} InputProps={{ disableUnderline: true }} sx={inputStyle} id="filled-basic" type="password" label="Password" variant="filled" />
+                    }} InputProps={{ disableUnderline: true }} sx={inputStyle} type="password" label="Password" variant="filled" />
                 </div>
-                <button onClick={() => {
-                    navigate('/whos_watching')
-                }} className="login__sign-in" type="button">Sign In</button>
+                <button onClick={handleSubmit} className="login__sign-in" type="button">Sign In</button>
                 <div className="login__secondary-cta"><a className="login__secondary-cta__text" href="#">Remember me</a><a className="login__secondary-cta__text login__secondary-cta__text--need-help" href="#">Need help?</a></div>
             </div>
         </div>

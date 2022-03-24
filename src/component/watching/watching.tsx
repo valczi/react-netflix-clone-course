@@ -9,7 +9,6 @@ import './watching.css'
 export default function Watching() {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const users = useAppSelector((state: any) => state.movies.users);
-    console.log(users);
 
     return (
         <div className='users'>
