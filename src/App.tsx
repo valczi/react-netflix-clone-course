@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React, { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from './stores/hooks'
-import Login from './component/Login/Login'
+import Login from './component/Login/login'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';

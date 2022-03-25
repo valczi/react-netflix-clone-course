@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from 'react';
-import './Login.css';
+import './login.css';
 import { useNavigate } from "react-router-dom"
 import TextField from '@mui/material/TextField';
 import Swal from 'sweetalert2'
