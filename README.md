@@ -1,5 +1,7 @@
 # react-netflix-clone-course
 
+CAZZOLI VALENTIN
+
 ## Features
 
 -   Login
